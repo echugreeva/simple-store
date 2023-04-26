@@ -31,12 +31,27 @@ export const deleteProduct = (id) => {
 }
 export const getSales = () => {
     return db('sistore_sales')
-    // .where({ date is 5 days from today sum of lines by produt id order desc limit 5
-        
-    // })
-    .select('*')
+        .select('id')
+        .count('id', {as:'sales'}) 
+        .groupBy('id')
+        .limit(5)
+    
 }
 
+//need a join to get price by id sum 
+ export const getSalesFiveDays = (date) => {
+    return db('sistore_sales')
+        .select('id')
+        .count('id', {as:'sales'}) 
+        .groupBy('id')
+        .where('date', '>', date-5)
+        .limit(5)
+    
+}
+
+// .where({ date is 5 days from today sum of lines by produt id order desc limit 5
+        
+    // })
 export const addSale = (ids)=> {
     return db('sistore_sales')
     .insert(ids)

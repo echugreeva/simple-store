@@ -1,4 +1,4 @@
-import {getProducts, addProduct, updateProduct, deleteProduct, getSales, addSale} from '../modules/data.js'
+import {getProducts, addProduct, updateProduct, deleteProduct, getSales, addSale, getSalesFiveDays } from '../modules/data.js'
 
 export const _getProducts = (req,res) => {
     getProducts()
@@ -45,6 +45,29 @@ export const _addSale = (req, res) => {
     addSale(ids)
     .then(data=> {
         res.json(data) })
+    .catch(e=>{
+        console.log(e);
+        res.status(404).json({ msg: 'not found' })
+    })
+}
+
+export const _getSales = (req,res) => {
+    getSales()
+    .then(data=> {
+        res.json(data)
+    })
+    .catch(e=>{
+        console.log(e);
+        res.status(404).json({ msg: 'not found' })
+    })
+}
+
+export const _getSalesFiveDays = (req,res) => {
+    let date = new Date()
+    getSalesFiveDays (date)
+    .then(data=> {
+        res.json(data)
+    })
     .catch(e=>{
         console.log(e);
         res.status(404).json({ msg: 'not found' })
