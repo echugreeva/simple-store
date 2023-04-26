@@ -1,4 +1,4 @@
-import {getProducts, addProduct, updateProduct, deleteProduct, getSales, updateSales} from '../modules/data.js'
+import {getProducts, addProduct, updateProduct, deleteProduct, getSales, addSale} from '../modules/data.js'
 
 export const _getProducts = (req,res) => {
     getProducts()
@@ -34,4 +34,19 @@ export const _updateProduct = (req, res) => {
     })
 }
 
-
+export const _addSale = (req, res) => {
+    console.log(req.body)
+    console.log(req.body.cartItems[0].id)
+    let ids=[]
+    req.body.cartItems.map(i => {
+        ids.push({id:i.id })
+    })
+    console.log(ids)
+    addSale(ids)
+    .then(data=> {
+        res.json(data) })
+    .catch(e=>{
+        console.log(e);
+        res.status(404).json({ msg: 'not found' })
+    })
+}

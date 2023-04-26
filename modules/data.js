@@ -37,9 +37,9 @@ export const getSales = () => {
     .select('*')
 }
 
-export const updateSales = (id)=> {
+export const addSale = (ids)=> {
     return db('sistore_sales')
-    .insert(id)
+    .insert(ids)
     .returning('*')
 
 }
