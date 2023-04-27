@@ -28,3 +28,35 @@ package-lock.json
 .env
 
 /client/.env
+
+
+
+
+/client-old/node_modules
+/client-old/.pnp
+/client-old/.pnp.js
+
+# testing
+/client-old/coverage
+
+# production
+/client-old/build
+
+# misc
+/client-old-old/.DS_Store
+/client-old/.env.local
+/client-old/.env.development.local
+/client-old/.env.test.local
+/client-old/.env.production.local
+
+/client-old/npm-debug.log*
+/client-old/yarn-debug.log*
+/client-old/yarn-error.log*
+
+
+/client-old/package-lock.json
+package-lock.json
+
+.env
+
+/client-old/.env
