@@ -31,22 +31,37 @@ export const deleteProduct = (id) => {
 }
 export const getSales = () => {
     return db('sistore_sales')
-        .select('id')
-        .count('id', {as:'sales'}) 
-        .groupBy('id')
+        .join('sistore_product', 'sistore_sales.id','sistore_product.id')
+        .select('sistore_sales.id', 'title')
+        .sum('price')
+        .count('sistore_sales.id', {as:'sales'}) 
+        .groupBy('sistore_sales.id', 'title')
         .limit(5)
     
 }
 
 //need a join to get price by id sum 
  export const getSalesFiveDays = (date) => {
+    // console.log(date)
     return db('sistore_sales')
-        .select('id')
-        .count('id', {as:'sales'}) 
-        .groupBy('id')
-        .where('date', '>', date-5)
-        .limit(5)
+        .join('sistore_product', 'sistore_sales.id','sistore_product.id')
+        .select('day')
+        .sum('price')
+        .groupBy('day')
+        // .groupBy('sistore_sales.id','title','date','::date')
+        .where('day', '>', date)
+        
     
+}
+
+export const getDestinctTop = ()=>{
+    return db('sistore_sales')
+    .join('sistore_product', 'sistore_sales.id','sistore_product.id')
+    .select('title')
+    .count('sistore_sales.id', {as:'sales'}) 
+    .groupByRaw('DATE_TRUNC(\'minute\', date)')
+    .groupBy('title')
+    .limit(5)
 }
 
 // .where({ date is 5 days from today sum of lines by produt id order desc limit 5
@@ -58,3 +73,4 @@ export const addSale = (ids)=> {
     .returning('*')
 
 }
+
